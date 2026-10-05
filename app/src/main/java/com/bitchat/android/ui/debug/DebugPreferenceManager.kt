@@ -24,6 +24,7 @@ object DebugPreferenceManager {
     private const val KEY_BLE_ENABLED = "ble_enabled"
     private const val KEY_WIFI_AWARE_ENABLED = "wifi_aware_enabled"
     private const val KEY_WIFI_AWARE_VERBOSE = "wifi_aware_verbose"
+    private const val KEY_MESSAGE_TTL_HOPS = "message_ttl_hops"
     // Mesh TTL/hops control
     private const val KEY_MESSAGE_TTL_HOPS = "message_ttl_hops"
 
@@ -130,6 +131,8 @@ object DebugPreferenceManager {
     }
 
     // Mesh TTL/hops (packet hop limit)
+
+    // Mesh packet hop limit control
     fun getMessageTtlHops(default: Int = 200): Int =
         if (ready()) prefs.getInt(KEY_MESSAGE_TTL_HOPS, default) else default
 
