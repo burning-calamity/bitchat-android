@@ -24,6 +24,8 @@ object DebugPreferenceManager {
     private const val KEY_BLE_ENABLED = "ble_enabled"
     private const val KEY_WIFI_AWARE_ENABLED = "wifi_aware_enabled"
     private const val KEY_WIFI_AWARE_VERBOSE = "wifi_aware_verbose"
+    // Mesh TTL/hops control
+    private const val KEY_MESSAGE_TTL_HOPS = "message_ttl_hops"
 
     private lateinit var prefs: SharedPreferences
 
@@ -125,5 +127,13 @@ object DebugPreferenceManager {
 
     fun setWifiAwareVerbose(value: Boolean) {
         if (ready()) prefs.edit().putBoolean(KEY_WIFI_AWARE_VERBOSE, value).apply()
+    }
+
+    // Mesh TTL/hops (packet hop limit)
+    fun getMessageTtlHops(default: Int = 200): Int =
+        if (ready()) prefs.getInt(KEY_MESSAGE_TTL_HOPS, default) else default
+
+    fun setMessageTtlHops(value: Int) {
+        if (ready()) prefs.edit().putInt(KEY_MESSAGE_TTL_HOPS, value).apply()
     }
 }
