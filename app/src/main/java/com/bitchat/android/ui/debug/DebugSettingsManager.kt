@@ -64,6 +64,9 @@ class DebugSettingsManager private constructor() {
     private val _maxClientConnections = MutableStateFlow(8)
     val maxClientConnections: StateFlow<Int> = _maxClientConnections.asStateFlow()
     
+    // Mesh packet hop limit
+    private val _messageTtlHops = MutableStateFlow(200)
+    val messageTtlHops: StateFlow<Int> = _messageTtlHops.asStateFlow()
     init {
         // Load persisted defaults (if preference manager already initialized)
         try {
@@ -80,7 +83,9 @@ class DebugSettingsManager private constructor() {
             _wifiAwareVerbose.value = DebugPreferenceManager.getWifiAwareVerbose(false)
         } catch (_: Exception) {
             // Preferences not ready yet; keep defaults. They will be applied on first change.
+        
         }
+        _messageTtlHops.value = DebugPreferenceManager.getMessageTtlHops(200)
     }
 
     // Debug data collections
